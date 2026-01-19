@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Seatwork 2 Third Quarter</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ff5fa4, #fffbab, #ff5fa4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        width: 420px;
+        border-radius: 25px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        text-align: center;
+    }
+
+    h1 {
+        color: #ff7aa2;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    label {
+        font-weight: 600;
+        color: #555;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        margin-top: 6px;
+        background-color: #f9fcff;
+    }
+
+    button {
+        margin-top: 18px;
+        padding: 14px;
+        width: 100%;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(90deg, #ff9acb);
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        transform: scale(1.03);
+        opacity: 0.95;
+    }
+
+    .result {
+        margin-top: 20px;
+        padding: 16px;
+        border-radius: 18px;
+        font-size: 16px;
+        display: none;
+    }
+
+    .success {
+        background: #e8fff3;
+        color: #2e7d32;
+        border: 2px dashed #8fd3f4;
+    }
+
+    .error {
+        background: #fff0f4;
+        color: #c62828;
+        border: 2px dashed #ff9acb;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🏆 Intramurals Team Checker 🏆</h1>
+
+    <div class="group">
+        <label>Are you registered online?</label>
+        <select id="registration">
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+
+    <div class="group">
+        <label>Do you have medical clearance?</label>
+        <select id="medical">
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+
+    <div class="group">
+        <label>Grade Level</label>
+        <select id="grade">
+            <option value="">Select Grade</option>
+            <option value="7">Grade 7</option>
+            <option value="8">Grade 8</option>
+            <option value="9">Grade 9</option>
+            <option value="10">Grade 10</option>
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>
+        </select>
+    </div>
+
+    <button onclick="checkEligibility()">Check Team</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+function checkEligibility() {
+
+    let registration = document.getElementById("registration").value;
+    let medical = document.getElementById("medical").value;
+    let grade = document.getElementById("grade").value;
+    let resultBox = document.getElementById("result");
+
+    resultBox.style.display = "block";
+
+    if (registration === "yes" && medical === "yes" && grade >= 7 && grade <= 10) {
+
+        let teams = ["Blue Bears 🐻", "Red Bulldogs 🐶", "Yellow Tigers 🐯", "Green Hornets 🐝"];
+        let randomTeam = teams[Math.floor(Math.random() * teams.length)];
+
+        resultBox.className = "result success";
+        resultBox.innerHTML =
+            "🎉 Congratulations! You are eligible for Intramurals!<br><br>" +
+            "Your team is: <strong>" + randomTeam + "</strong>";
+
+    } else {
+
+        resultBox.className = "result error";
+
+        if (registration !== "yes") {
+            resultBox.innerHTML = "❌ Please register online first.";
+        }
+        else if (medical !== "yes") {
+            resultBox.innerHTML = "❌ Please secure your medical clearance.";
+        }
+        else if (grade < 7 || grade > 10) {
+            resultBox.innerHTML = "❌ Only Grades 7 to 10 are allowed to join Intramurals.";
+        }
+        else {
+            resultBox.innerHTML = "❌ Please complete all requirements.";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
